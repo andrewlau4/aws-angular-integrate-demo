@@ -10,10 +10,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
+import { UserloginComponent } from './userlogin/userlogin.component';
+import { MaincontentComponent } from './maincontent/maincontent.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UserloginComponent,
+    MaincontentComponent
   ],
   imports: [
     BrowserModule,
