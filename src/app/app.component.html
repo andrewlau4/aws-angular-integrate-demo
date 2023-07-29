@@ -68,7 +68,7 @@
 
   .content {
     display: flex;
-    margin: 82px auto 32px;
+    margin: 10px auto 32px;
     padding: 0 16px;
     max-width: 960px;
     flex-direction: column;
@@ -303,6 +303,7 @@
 </style>
 
 <!-- Toolbar -->
+<!--
 <div class="toolbar" role="banner">
   <img
     width="40"
@@ -324,6 +325,23 @@
       </svg>
     </a>
 </div>
+-->
+
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Aws App Demo</span>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="User button menu">
+      <mat-icon class="toolbar-icon" aria-hidden="false" aria-label="user logout">account_circle</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>remove_circle_outline</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>
 
 <div class="content" role="main">
 <router-outlet></router-outlet>
