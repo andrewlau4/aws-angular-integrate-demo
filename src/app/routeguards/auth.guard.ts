@@ -7,7 +7,7 @@ import { Auth } from 'aws-amplify';
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
-  console.log(`authGuard navigate to login`);
+  console.log(`authGuard check`);
   return Auth.currentAuthenticatedUser().then(
           (user) => {
             console.log("authGuard checked user already login"); 

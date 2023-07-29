@@ -5,6 +5,9 @@ import { UserloginComponent } from './userlogin/userlogin.component';
 
 import { authGuard } from './routeguards/auth.guard'
 
+import { LOGIN_PATH } from './constants';
+
+
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'maincontent' },
   {
@@ -24,7 +27,7 @@ const routes: Routes = [
     // ]
   },
   {
-    path: 'login',
+    path: LOGIN_PATH,
     component: UserloginComponent
   }
 
