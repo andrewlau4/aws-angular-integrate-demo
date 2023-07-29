@@ -13,6 +13,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { UserloginComponent } from './userlogin/userlogin.component';
 import { MaincontentComponent } from './maincontent/maincontent.component';
 
+import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +29,9 @@ import { MaincontentComponent } from './maincontent/maincontent.component';
 
     HttpClientModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule,
+
+    AmplifyAuthenticatorModule
 
   ],
   providers: [],

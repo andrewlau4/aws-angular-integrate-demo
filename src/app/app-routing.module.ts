@@ -11,6 +11,17 @@ const routes: Routes = [
     path: 'maincontent',
     component: MaincontentComponent,
     canActivate: [ authGuard ],
+    // children: [
+    //   {
+    //     path: '',
+    //     pathMatch: 'full',
+    //     redirectTo: 'textextract'
+    //   },
+    //   {
+    //     path: 'textextract',
+    //     component: TextExtractComponent
+    //   }
+    // ]
   },
   {
     path: 'login',
