@@ -14,17 +14,12 @@ const routes: Routes = [
     path: 'maincontent',
     component: MaincontentComponent,
     canActivate: [ authGuard ],
-    // children: [
-    //   {
-    //     path: '',
-    //     pathMatch: 'full',
-    //     redirectTo: 'textextract'
-    //   },
-    //   {
-    //     path: 'textextract',
-    //     component: TextExtractComponent
-    //   }
-    // ]
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./predictions/predictions.module').then(m => m.PredictionsModule)
+      }
+    ]
   },
   {
     path: LOGIN_PATH,

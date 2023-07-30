@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 
 import { Auth } from 'aws-amplify';
 
+import { LOGIN_PATH } from '../constants';
+
+
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
@@ -15,7 +18,7 @@ export const authGuard: CanActivateFn = (route, state) => {
           }
         ).catch( err => {
           console.log("authGuard checked user has not login"); 
-          return router.navigate(['login']);
+          return router.navigate([ LOGIN_PATH ]);
         });
 
 };
