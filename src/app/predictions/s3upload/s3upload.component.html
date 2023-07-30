@@ -1,1 +1,8 @@
-<p>s3upload works!</p>
+<div appDragndropUpload (fileDropped)="fileDropped($event)" class="dropzone">
+    <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowserHandler($event)" />
+    <mat-icon>cloud_upload</mat-icon>
+    <h3>Drag and drop file here</h3>
+    <h3>or</h3>
+    <label for="fileDropRef">Browse for file</label>
+</div>
+  

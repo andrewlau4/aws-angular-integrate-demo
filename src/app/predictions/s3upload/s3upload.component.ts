@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class S3uploadComponent {
 
+  fileDropped(event: any) {
+
+  }
+
+  fileBrowserHandler(event: any) {
+
+  }
 }
