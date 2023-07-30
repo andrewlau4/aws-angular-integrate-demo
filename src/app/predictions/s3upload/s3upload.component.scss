@@ -8,6 +8,9 @@
     position: relative;
     margin: 0 auto;
 
+    background-color: #e6f9ff;
+    transition: background-color 2s ease-in-out;
+
     input {
         opacity: 0;
         position: absolute;
@@ -37,6 +40,10 @@
 .fileover {
   animation: shake 1s;
   animation-iteration-count: infinite;
+}
+
+.turn-red {
+    background-color: #ee7752 
 }
 
 @keyframes shake {
@@ -83,4 +90,14 @@
   100% {
     transform: translate(1px, -2px) rotate(-1deg);
   }
+}
+
+@keyframes red-animation {
+    1% {
+        background-color: #ffffff
+    }
+    100% {
+        background-color: #ee7752  
+    }
+
 }
