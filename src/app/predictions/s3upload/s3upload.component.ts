@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 })
 export class S3uploadComponent {
 
-  readonly dragItemValidityCheckFn = (item: any) =>  item && item.type && (item.type.startsWith('image') || item.type.startsWith('img'));
   readonly invalidCssClass = "turn-red";
   readonly validCssClass = "turn-green";
 
@@ -19,4 +18,33 @@ export class S3uploadComponent {
   fileBrowserHandler(event: any) {
 
   }
+
+  checkFileTypesValid(evt: any) {
+
+    const items = (evt.dataTransfer.files && Object.keys(evt.dataTransfer.files).length > 0)
+      ? evt.dataTransfer.files
+      : evt.dataTransfer.items;
+
+    const verifyType = (item: any): boolean => {
+      console.log(`checking ${item.type}`);
+
+      return item && item.type && (item.type.startsWith('image') || item.type.startsWith('img'));
+    }
+    
+    const verifyItems = (items: any): boolean => {
+      console.log(`items: ${JSON.stringify(items)}`)
+      for (const i of items) {
+        if (!verifyType(i)) {
+          console.log(`item ${i} is not image`);
+          return false;
+        }
+      }
+      console.log("all items are images")
+      return true;
+    }
+
+    return (!items) ? false : verifyItems(items);
+
+  }
+
 }

@@ -14,7 +14,7 @@ export class DragndropUploadDirective {
   @Output() fileDropped = new EventEmitter<any>();
 
   @Input({required: true})
-  dragItemValidityCheck: (item: any) => boolean = (_) => true;
+  dragItemsValidityCheck: (event: any) => boolean = (_) => true;
 
   @Input({required: true})
   invalidCssClass = "";
@@ -32,10 +32,8 @@ export class DragndropUploadDirective {
     evt.preventDefault();
     evt.stopPropagation();
 
-    //this.fileOver = true;
     this.addClassAttribute(evt);
     
-
     console.log(`Drag Over ${JSON.stringify(evt)}`);
   }
 
@@ -70,7 +68,7 @@ export class DragndropUploadDirective {
 
   addClassAttribute(evt: any) {
     if (this.cssClasses.length == 0) {  
-      const validityClass = this.checkFileTypesValid(evt) ? this.validCssClass : this.invalidCssClass;
+      const validityClass = this.dragItemsValidityCheck(evt) ? this.validCssClass : this.invalidCssClass;
       this.cssClasses.push(this.fileOverClass, validityClass);
       console.log(`cssClasses ${this.cssClasses}`)
       this.classAttributes = this.cssClasses.join(" ");
@@ -80,39 +78,6 @@ export class DragndropUploadDirective {
   clearClassAttribute() {
     this.cssClasses = [];
     this.classAttributes = "";
-  }
-
-  checkFileTypesValid(evt: any) {
-    const verifyType = (item: any): boolean => {
-      console.log(`checking ${item.type}`);
-
-      if (this.dragItemValidityCheck) {
-        return this.dragItemValidityCheck!(item);
-      } else {
-        return false;
-      }
-    }
-    
-    const verifyItems = (items: any): boolean => {
-      console.log(`items: ${JSON.stringify(items)}`)
-      for (const i of items) {
-        if (!verifyType(i)) {
-          console.log(`item ${i} is not image`);
-          return false;
-        }
-      }
-      console.log("all items are images")
-      return true;
-    }
-
-    console.log(`files: ${(evt.dataTransfer.files && Object.keys(evt.dataTransfer.files).length > 0)}`);
-
-    const items = (evt.dataTransfer.files && Object.keys(evt.dataTransfer.files).length > 0)
-      ? evt.dataTransfer.files
-      : evt.dataTransfer.items;
-    
-    return (!items) ? false : verifyItems(items);
-
   }
 
 }

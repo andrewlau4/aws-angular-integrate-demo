@@ -1,5 +1,5 @@
 <div appDragndropUpload (fileDropped)="fileDropped($event)" 
-    [dragItemValidityCheck]="dragItemValidityCheckFn"
+    [dragItemsValidityCheck]="checkFileTypesValid"
     [invalidCssClass]="invalidCssClass"
     [validCssClass] = "validCssClass"
     class="dropzone">
