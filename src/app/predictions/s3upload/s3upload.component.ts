@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
 })
 export class S3uploadComponent {
 
+  dragItemValidityCheckFn = (item: any) =>  item && item.type && (item.type.startsWith('image') || item.type.startsWith('img'));
+
   fileDropped(event: any) {
 
   }

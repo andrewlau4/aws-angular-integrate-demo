@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, HostBinding, HostListener, Output } from '@angular/core';
+import { Directive, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 
 //based on https://medium.com/@tarekabdelkhalek/how-to-create-a-drag-and-drop-file-uploading-in-angular-78d9eba0b854
 @Directive({
@@ -8,13 +8,13 @@ export class DragndropUploadDirective {
 
   private cssClasses: string[] = [];
 
-  //@HostBinding('class.fileover')
-  //fileOver: boolean = false;
-
   @HostBinding('class')
   classAttributes: string = this.cssClasses.join(" ");
 
   @Output() fileDropped = new EventEmitter<any>();
+
+  @Input({required: true})
+  dragItemValidityCheck: (item: any) => boolean = (_) => true;
 
   readonly fileOverClass = "fileover";
   readonly redClass = "turn-red";
@@ -28,7 +28,7 @@ export class DragndropUploadDirective {
     evt.stopPropagation();
 
     //this.fileOver = true;
-    this.addClassAttribute(this.fileOverClass, this.redClass);
+    this.addClassAttribute(evt);
     
 
     console.log(`Drag Over ${JSON.stringify(evt)}`);
@@ -49,7 +49,6 @@ export class DragndropUploadDirective {
     evt.preventDefault();
     evt.stopPropagation();
 
-    //this.fileOver = false;
     this.clearClassAttribute();
 
     const files = evt.dataTransfer.files;
@@ -64,9 +63,10 @@ export class DragndropUploadDirective {
     console.log(`Drag Leave ${JSON.stringify(evt)}`);
   }
 
-  addClassAttribute(...classNames: string[]) {
-    if (this.cssClasses.length == 0) {
-      this.cssClasses.push(...classNames);
+  addClassAttribute(evt: any) {
+    if (this.cssClasses.length == 0) {  
+      this.checkFileTypesAreImage(evt);
+      this.cssClasses.push(this.fileOverClass, this.redClass);
       console.log(`cssClasses ${this.cssClasses}`)
       this.classAttributes = this.cssClasses.join(" ");
     }
@@ -75,6 +75,39 @@ export class DragndropUploadDirective {
   clearClassAttribute() {
     this.cssClasses = [];
     this.classAttributes = "";
+  }
+
+  checkFileTypesAreImage(evt: any) {
+    const verifyType = (item: any): boolean => {
+      console.log(`checking ${item.type}`);
+
+      if (this.dragItemValidityCheck) {
+        return this.dragItemValidityCheck!(item);
+      } else {
+        return false;
+      }
+    }
+    
+    const verifyItems = (items: any): boolean => {
+      console.log(`items: ${JSON.stringify(items)}`)
+      for (const i of items) {
+        if (!verifyType(i)) {
+          console.log(`item ${i} is not image`);
+          return false;
+        }
+      }
+      console.log("all items are images")
+      return true;
+    }
+
+    console.log(`files: ${(evt.dataTransfer.files && Object.keys(evt.dataTransfer.files).length > 0)}`);
+
+    const items = (evt.dataTransfer.files && Object.keys(evt.dataTransfer.files).length > 0)
+      ? evt.dataTransfer.files
+      : evt.dataTransfer.items;
+    
+    return (!items) ? false : verifyItems(items);
+
   }
 
 }
