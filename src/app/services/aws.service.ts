@@ -5,11 +5,15 @@ import { Auth, Hub } from 'aws-amplify';
 
 import { LOGIN_PATH } from '../constants';
 
+import { BehaviorSubject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AwsService implements OnDestroy {
+
+  readonly pictureUploadEvent: BehaviorSubject<number> = new BehaviorSubject(1);
 
   readonly amplify_auth_services: { handleSignUp: (formData: Record<string, any>) => Promise<any> } = {
     async handleSignUp(formData: Record<string, any>) {
@@ -65,6 +69,10 @@ export class AwsService implements OnDestroy {
     } catch (error) {
       console.log('error signing out: ', error);
     }
+  }
+
+  notifyPictureUploadEvent() {
+    this.pictureUploadEvent.next(1);
   }
 
   ngOnDestroy() {
