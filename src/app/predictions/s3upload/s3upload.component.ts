@@ -75,7 +75,7 @@ export class S3uploadComponent {
       .then(value => {
         thisUploadFileInfoArray[thisIndex].done = true;
         thisUploadFileInfoArray[thisIndex].error = null;
-        this._awsService.notifyPictureUploadEvent();
+        this._awsService.notifyPictureUploadCompleteEvent(thisUploadFileInfoArray[thisIndex].fileName!);
         console.log(`${JSON.stringify(thisUploadFileInfoArray[thisIndex])}`); 
       })
       .catch((error) => {

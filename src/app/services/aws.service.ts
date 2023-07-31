@@ -7,13 +7,14 @@ import { LOGIN_PATH } from '../constants';
 
 import { BehaviorSubject } from 'rxjs';
 
+type S3KeyName = string | null;
 
 @Injectable({
   providedIn: 'root'
 })
 export class AwsService implements OnDestroy {
 
-  readonly pictureUploadEvent: BehaviorSubject<number> = new BehaviorSubject(1);
+  readonly pictureUploadCompleteEvent: BehaviorSubject<S3KeyName> = new BehaviorSubject<S3KeyName>(null);
 
   readonly amplify_auth_services: { handleSignUp: (formData: Record<string, any>) => Promise<any> } = {
     async handleSignUp(formData: Record<string, any>) {
@@ -71,8 +72,8 @@ export class AwsService implements OnDestroy {
     }
   }
 
-  notifyPictureUploadEvent() {
-    this.pictureUploadEvent.next(1);
+  notifyPictureUploadCompleteEvent(s3KeyName: S3KeyName) {
+    this.pictureUploadCompleteEvent.next(s3KeyName);
   }
 
   ngOnDestroy() {

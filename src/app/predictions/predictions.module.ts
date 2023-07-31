@@ -8,6 +8,7 @@ import { S3uploadComponent } from './s3upload/s3upload.component';
 import { PictureCardComponent } from './picture-card/picture-card.component';
 import { PredictContentComponent } from './predict-content/predict-content.component';
 import { DragndropUploadDirective } from './directive/dragndrop-upload.directive';
+import { FileUploadProgressComponent } from './file-upload-progress/file-upload-progress.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { DragndropUploadDirective } from './directive/dragndrop-upload.directive
     S3uploadComponent,
     PictureCardComponent,
     PredictContentComponent,
-    DragndropUploadDirective
+    DragndropUploadDirective,
+    FileUploadProgressComponent
   ],
   imports: [
     CommonModule,
