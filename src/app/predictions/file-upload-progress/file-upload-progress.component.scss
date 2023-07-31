@@ -9,9 +9,24 @@ img {
 .progress-flex-container {
     display: flex;
     flex-direction: row;
+
+    animation-name: slideInFromTop;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+
 }
 
 .progress-flex-item {
     margin: 10px;
     flex-grow: 1; 
+}
+
+@keyframes slideInFromTop {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
 }
