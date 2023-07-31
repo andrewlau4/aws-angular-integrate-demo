@@ -1,5 +1,7 @@
 <div appDragndropUpload (fileDropped)="fileDropped($event)" 
     [dragItemValidityCheck]="dragItemValidityCheckFn"
+    [invalidCssClass]="invalidCssClass"
+    [validCssClass] = "validCssClass"
     class="dropzone">
     <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowserHandler($event)" />
     <mat-icon>cloud_upload</mat-icon>

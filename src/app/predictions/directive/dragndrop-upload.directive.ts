@@ -16,8 +16,13 @@ export class DragndropUploadDirective {
   @Input({required: true})
   dragItemValidityCheck: (item: any) => boolean = (_) => true;
 
+  @Input({required: true})
+  invalidCssClass = "";
+
+  @Input({required: true})
+  validCssClass = "";
+
   readonly fileOverClass = "fileover";
-  readonly redClass = "turn-red";
 
   constructor() { }
 
@@ -65,8 +70,8 @@ export class DragndropUploadDirective {
 
   addClassAttribute(evt: any) {
     if (this.cssClasses.length == 0) {  
-      this.checkFileTypesAreImage(evt);
-      this.cssClasses.push(this.fileOverClass, this.redClass);
+      const validityClass = this.checkFileTypesValid(evt) ? this.validCssClass : this.invalidCssClass;
+      this.cssClasses.push(this.fileOverClass, validityClass);
       console.log(`cssClasses ${this.cssClasses}`)
       this.classAttributes = this.cssClasses.join(" ");
     }
@@ -77,7 +82,7 @@ export class DragndropUploadDirective {
     this.classAttributes = "";
   }
 
-  checkFileTypesAreImage(evt: any) {
+  checkFileTypesValid(evt: any) {
     const verifyType = (item: any): boolean => {
       console.log(`checking ${item.type}`);
 
