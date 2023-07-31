@@ -1,0 +1,17 @@
+:host {
+    width: 100%
+}
+
+img {
+    margin: 0, 15px, 0, 0;
+}
+
+.progress-flex-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.progress-flex-item {
+    margin: 10px;
+    flex-grow: 1; 
+}

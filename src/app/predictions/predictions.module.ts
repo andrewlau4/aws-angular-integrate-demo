@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {MatIconModule} from '@angular/material/icon';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatCardModule} from '@angular/material/card';
 
 import { PredictionsRoutingModule } from './predictions-routing.module';
 import { S3uploadComponent } from './s3upload/s3upload.component';
@@ -23,7 +25,9 @@ import { FileUploadProgressComponent } from './file-upload-progress/file-upload-
     CommonModule,
     PredictionsRoutingModule,
 
-    MatIconModule
+    MatIconModule,
+    MatProgressBarModule,
+    MatCardModule
   ]
 })
 export class PredictionsModule { }

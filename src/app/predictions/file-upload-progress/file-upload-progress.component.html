@@ -1,1 +1,7 @@
-<p>file-upload-progress works!</p>
+<div class="progress-flex-container">
+    <div><img src="assets/img/cloud-upload_img.png" width="45px"/></div>
+    <div class="progress-flex-item" >
+        <div>{{ fileInfo.fileName }}</div>
+        <mat-progress-bar mode="determinate" [value]="fileInfo.progress"></mat-progress-bar>
+    </div>
+</div>

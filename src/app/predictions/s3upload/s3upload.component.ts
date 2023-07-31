@@ -5,8 +5,8 @@ import { AwsService } from '../../services/aws.service';
 import { Storage } from 'aws-amplify';
 
 type UploadFileInfo = {
-  fileName?: string,
-  progress?: number,
+  fileName: string,
+  progress: number,
   done?: boolean,
   error?: any
 };
@@ -56,9 +56,7 @@ export class S3uploadComponent {
       let thisIndex = index;
       let thisUploadFileInfoArray = this.uploadFileInfoArray;
 
-      thisUploadFileInfoArray[thisIndex] = {};
-      thisUploadFileInfoArray[thisIndex].fileName = f.name;
-      thisUploadFileInfoArray[thisIndex].progress = 0;
+      thisUploadFileInfoArray[thisIndex] = { fileName: f.name, progress: 0 };
 
       Storage.put(
         f.name, f, 

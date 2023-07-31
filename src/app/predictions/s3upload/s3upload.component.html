@@ -10,3 +10,4 @@
     <label for="fileDropRef">Browse for file</label>
 </div>
   
+<app-file-upload-progress *ngFor="let afile of uploadFileInfoArray; let i = index" [fileInfo]="afile"/>
