@@ -79,7 +79,7 @@ export class S3uploadComponent {
   }
 
   fileBrowserHandler(event: any) {
-    this.fileDropped(event);
+    this.fileDropped(event.target.files);
   }
 
   checkFileTypesValid(evt: any) {
