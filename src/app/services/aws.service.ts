@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Auth, Hub, Storage } from 'aws-amplify';
+import { Predictions } from '@aws-amplify/predictions';
 
 import { LOGIN_PATH } from '../constants';
 
@@ -143,6 +144,27 @@ export class AwsService implements OnDestroy {
             );
 
     callback(pictureInfo);
+  }
+
+  async extractTextFromPic(s3KeyName: string, callback: (result: string) => void) {
+    let identifyResult = await Predictions.identify({
+            text: {
+              source: {
+                key: s3KeyName,
+                level: 'private'
+              }
+            }
+          });
+
+    //https://docs.amplify.aws/lib/predictions/identify-text/q/platform/js/#identify-plain-text
+    let {
+      text: {
+        fullText, // String
+        lines, // Array of String ordered from top to bottom
+      }
+    } = identifyResult;
+
+    callback(fullText);
   }
 
   ngOnDestroy() {
