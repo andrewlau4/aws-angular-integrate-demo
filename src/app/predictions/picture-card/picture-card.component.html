@@ -1,5 +1,7 @@
 <div class="picture-card-container">
-  <div class="picture-card-overlay" *ngIf="isWaiting"></div>
+  <div class="picture-card-overlay" *ngIf="isWaiting">
+    <mat-spinner></mat-spinner>
+  </div>
   <mat-card [ngClass]="{'picture-card': true, 'waiting': isWaiting}">
       <mat-card-header>
         <div mat-card-avatar class="picture-header-image" [ngStyle]="{'background-image': 'url(' + pictureUrl + ')'}"></div>

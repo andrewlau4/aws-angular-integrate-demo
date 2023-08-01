@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 
@@ -29,7 +30,8 @@ import { FileUploadProgressComponent } from './file-upload-progress/file-upload-
     MatIconModule,
     MatProgressBarModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressSpinnerModule
   ]
 })
 export class PredictionsModule { }
