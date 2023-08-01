@@ -1,21 +1,19 @@
-<mat-card class="picture-card">
-    <mat-card-header>
+<div class="picture-card-container">
+  <div class="picture-card-overlay" *ngIf="isWaiting"></div>
+  <mat-card [ngClass]="{'picture-card': true, 'waiting': isWaiting}">
+      <mat-card-header>
+        <div mat-card-avatar class="picture-header-image" [ngStyle]="{'background-image': 'url(' + pictureUrl + ')'}"></div>
+        <mat-card-title>{{ s3BucketKey }}</mat-card-title>
+      </mat-card-header>
 
-
-      <div mat-card-avatar class="picture-header-image" [ngStyle]="{'background-image': 'url(' + pictureUrl + ')'}"></div>
-
-
-      <mat-card-title>{{ s3BucketKey }}</mat-card-title>
-    </mat-card-header>
-
-    <img mat-card-image [src]="pictureUrl" height="300px">
-    <mat-card-content>
-      <p>
-        {{ analysisResultText }}
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button (click)="extractText()">Extract Text</button>
-    </mat-card-actions>
+      <img mat-card-image [src]="pictureUrl" height="300px">
+      <mat-card-content>
+        <p>
+          {{ analysisResultText }}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button (click)="extractText()">Extract Text</button>
+      </mat-card-actions>
   </mat-card>
-
+</div>

@@ -16,14 +16,18 @@ export class PictureCardComponent {
 
   analysisResultText = "Press the buttons to analyse the image";
 
+  isWaiting = false;
+
   constructor(private _awsService: AwsService) {}
 
   extractText() { 
+    this.isWaiting = true
     this._awsService.extractTextFromPic(this.s3BucketKey!, 
       (resultText) => {
         if (resultText) {
           this.analysisResultText = resultText;
         }
+        this.isWaiting = false;
       }
     );
   }
