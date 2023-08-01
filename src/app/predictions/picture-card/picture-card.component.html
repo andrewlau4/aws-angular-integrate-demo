@@ -10,9 +10,12 @@
 
       <img mat-card-image [src]="pictureUrl" height="300px">
       <mat-card-content>
+        Extract Text Result:
+        <hr/>
         <p>
           {{ analysisResultText }}
         </p>
+        <hr/>
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button (click)="extractText()">Extract Text</button>

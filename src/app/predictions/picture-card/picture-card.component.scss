@@ -27,8 +27,8 @@ img {
   left: 0;
   z-index: 10;
   background-color: rgba(204,204,204,0.5);
-}
 
-.picture-card-overlay > * {
-  margin: auto auto;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
 }
