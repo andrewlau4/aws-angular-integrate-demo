@@ -57,8 +57,8 @@ export class S3uploadComponent {
       thisUploadFileInfoArray[thisIndex] = { fileName: f.name, progress: 0 };
 
       this._awsService.s3Upload(f,
-          (progress: { loaded: number, total: number }) => {
-            this.uploadFileInfoArray[thisIndex].progress = progress.loaded/progress.total * 100;
+          ({ loaded, total}) => {
+            this.uploadFileInfoArray[thisIndex].progress = loaded/total * 100;
             console.log(`${JSON.stringify(this.uploadFileInfoArray[thisIndex])}`); 
           },
 

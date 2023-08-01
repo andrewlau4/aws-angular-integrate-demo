@@ -37,17 +37,15 @@ export class AwsService implements OnDestroy {
   authenListenerUnSubscribe: (() => void) | null = null
 
   constructor(private _router: Router) {
-    if (!this.authenListenerUnSubscribe) {
-      this.authenListenerUnSubscribe = Hub.listen('auth',  ({payload}) => {
-        console.log(`Amplify Hub auth payload ${JSON.stringify(payload)}`);
-  
-        if (payload.event == 'signIn' || payload.event == 'autoSignIn') {
-          this._router.navigate(['']);
-        } else if (payload.event == 'signOut') {
-          this._router.navigate([ LOGIN_PATH ]);
-        }
-      });
-    }
+    this.authenListenerUnSubscribe = Hub.listen('auth',  ({payload}) => {
+      console.log(`Amplify Hub auth payload ${JSON.stringify(payload)}`);
+
+      if (payload.event == 'signIn' || payload.event == 'autoSignIn') {
+        this._router.navigate(['']);
+      } else if (payload.event == 'signOut') {
+        this._router.navigate([ LOGIN_PATH ]);
+      }
+    });
   }
 
 
