@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 
 import { AwsService } from '../../services/aws.service';
 
-import { Storage } from 'aws-amplify';
-
 type UploadFileInfo = {
   fileName: string,
   progress: number,
@@ -58,31 +56,22 @@ export class S3uploadComponent {
 
       thisUploadFileInfoArray[thisIndex] = { fileName: f.name, progress: 0 };
 
-      Storage.put(
-        f.name, f, 
-        {
-          level: 'private',
-          contentType: f.type,
+      this._awsService.s3Upload(f,
+          (progress: { loaded: number, total: number }) => {
+            this.uploadFileInfoArray[thisIndex].progress = progress.loaded/progress.total * 100;
+            console.log(`${JSON.stringify(this.uploadFileInfoArray[thisIndex])}`); 
+          },
 
-          progressCallback(progress) {
-            thisUploadFileInfoArray[thisIndex].progress = progress.loaded/progress.total * 100;
-            console.log(`${JSON.stringify(thisUploadFileInfoArray[thisIndex])}`); 
+          (result: any) => {
+            this.uploadFileInfoArray[thisIndex].done = true;
+            this.uploadFileInfoArray[thisIndex].error = null;
+          },
+
+          (error: any) => {
+            this.uploadFileInfoArray[thisIndex].done = true;
+            this.uploadFileInfoArray[thisIndex].error = error;
           }
-        }
-      )
-      .then(value => {
-        thisUploadFileInfoArray[thisIndex].done = true;
-        thisUploadFileInfoArray[thisIndex].error = null;
-        this._awsService.notifyPictureUploadCompleteEvent(thisUploadFileInfoArray[thisIndex].fileName!);
-        console.log(`${JSON.stringify(thisUploadFileInfoArray[thisIndex])}`); 
-      })
-      .catch((error) => {
-        thisUploadFileInfoArray[thisIndex].done = true;
-        thisUploadFileInfoArray[thisIndex].error = error;
-        console.log(`${f.name} Uploaded ${index} promise error ${JSON.stringify(error)}`);
-        console.log(`${JSON.stringify(thisUploadFileInfoArray[thisIndex])}`); 
-        throw error;
-      })
+        );
 
       index++;
     }
@@ -90,7 +79,7 @@ export class S3uploadComponent {
   }
 
   fileBrowserHandler(event: any) {
-
+    this.fileDropped(event);
   }
 
   checkFileTypesValid(evt: any) {

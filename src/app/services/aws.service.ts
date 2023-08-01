@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Auth, Hub } from 'aws-amplify';
+import { Auth, Hub, Storage } from 'aws-amplify';
 
 import { LOGIN_PATH } from '../constants';
 
@@ -74,6 +74,33 @@ export class AwsService implements OnDestroy {
 
   notifyPictureUploadCompleteEvent(s3KeyName: S3KeyName) {
     this.pictureUploadCompleteEvent.next(s3KeyName);
+  }
+
+  s3Upload(file: File, progressCallback: (progress: { loaded: number, total: number }) => void,
+    completedCallback: (result: any) => void,
+    errorCallback: (error: any) => void, 
+  ) {
+    
+    Storage.put(
+      file.name, file, 
+      {
+        level: 'private',
+        contentType: file.type,
+        progressCallback
+      }
+    )
+    .then(result => {
+      completedCallback(result);
+      return result;
+    })
+    .then(
+      (result) => 
+        this.notifyPictureUploadCompleteEvent(file.name)
+    )
+    .catch((error) => {
+      errorCallback(error);
+      throw error;
+    })
   }
 
   ngOnDestroy() {
