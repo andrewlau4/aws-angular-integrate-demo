@@ -167,6 +167,38 @@ export class AwsService implements OnDestroy {
     callback(fullText);
   }
 
+  
+  async identityEntitiesFromPic(s3KeyName: string, callback: (result: string) => void) {
+    let identityResult = await Predictions.identify({
+            entities: {
+              source: {
+                key: s3KeyName,
+                level: 'private'
+              }
+            }
+          });
+
+    let resultString = "";
+
+    identityResult.entities.forEach(({boundingBox, landmarks}) => {
+      if (landmarks) {
+        landmarks.forEach(landmark => {
+          const {
+            type, // string "eyeLeft", "eyeRight", "mouthLeft", "mouthRight", "nose"
+            x, // ratio of overall image width
+            y // ratio of overall image height
+          } = landmark;
+
+          if (type) {
+            resultString = resultString.concat(type).concat("<br>");
+          }
+        });
+      }
+    });
+
+    callback(resultString);
+  }
+
   ngOnDestroy() {
     if (this.authenListenerUnSubscribe) {
       this.authenListenerUnSubscribe();
