@@ -9,6 +9,11 @@ import { BehaviorSubject } from 'rxjs';
 
 type S3KeyName = string | null;
 
+type S3PictureInfo = {
+  pictureUrl: string,
+  s3KeyName: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -97,8 +102,47 @@ export class AwsService implements OnDestroy {
     )
     .catch((error) => {
       errorCallback(error);
-      throw error;
     })
+  }
+
+  async s3ListAllFiles(callback: (pictureInfo: S3PictureInfo[]) => void) {
+    let pictureListResult = await Storage.list('', {
+      level: 'private'
+    });
+
+    let pictureKeys = pictureListResult.results.map(
+      item => item.key
+    ).filter(
+      //this filter is only used to convert type  (string | undefined)[]  into string[]
+      (value): value is string => { return !!value } );
+
+    let pictureUrls = await Promise.all (pictureKeys.map(
+        value =>
+          Storage.get(value, {
+              level: "private",
+              validateObjectExistence: true
+            }).then(
+              (resultUrl) => {
+                return { pictureUrl: resultUrl, s3KeyName: value };
+              }
+            )
+          
+        ) );
+
+    callback(pictureUrls);
+  }
+
+  async s3GetFile(s3KeyName: string, callback: (pictureInfo: S3PictureInfo) => void) {
+    let pictureInfo = await Storage.get(s3KeyName, {
+              level: "private",
+              validateObjectExistence: true
+            }).then(
+              (resultUrl) => {
+                return { pictureUrl: resultUrl, s3KeyName: s3KeyName };
+              }
+            );
+
+    callback(pictureInfo);
   }
 
   ngOnDestroy() {
