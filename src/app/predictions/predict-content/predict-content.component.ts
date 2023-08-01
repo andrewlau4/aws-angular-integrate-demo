@@ -18,17 +18,16 @@ export class PredictContentComponent implements OnInit, OnDestroy {
 
   constructor(private _awsService: AwsService) {}
 
-  ngOnInit() {
-    const listAllPics_Binded = this.listAllPics.bind(this);
-    const loadPicFromS3_Binded = this.loadPicFromS3.bind(this);
+  s3PicturesKeyToUrlMap: { [s3key: string]: string } = { }
 
+  ngOnInit() {
     this.picUploadCompletedSubscription = this._awsService
       .pictureUploadCompleteEvent.subscribe(
         s3KeyName => {
           if (s3KeyName == null) {
-            listAllPics_Binded();
+            this.listAllPics();
           } else {
-            loadPicFromS3_Binded(s3KeyName);
+            this.loadPicFromS3(s3KeyName);
           }
         }
     );
@@ -41,8 +40,15 @@ export class PredictContentComponent implements OnInit, OnDestroy {
     }
   }
 
-  async listAllPics() {
-
+  listAllPics() {
+    this._awsService.s3ListAllFiles(
+      (pictures) => {
+        this.s3PicturesKeyToUrlMap = {};
+        pictures.forEach(
+          item => this.s3PicturesKeyToUrlMap[item.s3KeyName] = item.pictureUrl
+        )
+      }
+    );
   }
 
   async loadPicFromS3(s3KeyName: string) {

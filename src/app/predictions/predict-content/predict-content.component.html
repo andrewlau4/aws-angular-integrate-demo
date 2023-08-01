@@ -1,5 +1,5 @@
 <app-s3upload></app-s3upload>
 
-<div class="picture-container mat-elevation-z8">
-
+<div class="picture-container mat-elevation-z8"> 
+    <app-picture-card *ngFor="let pic of s3PicturesKeyToUrlMap | keyvalue" [pictureUrl]="pic.value" [s3BucketKey]="pic.value"></app-picture-card>
 </div>
