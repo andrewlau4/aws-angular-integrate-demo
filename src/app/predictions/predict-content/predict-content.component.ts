@@ -51,7 +51,12 @@ export class PredictContentComponent implements OnInit, OnDestroy {
     );
   }
 
-  async loadPicFromS3(s3KeyName: string) {
+  loadPicFromS3(s3KeyName: string) {
+    this._awsService.s3GetFile(s3KeyName,
+      (item) => {
+        this.s3PicturesKeyToUrlMap[item.s3KeyName] = item.pictureUrl
+      }
+    );
 
   }
 
