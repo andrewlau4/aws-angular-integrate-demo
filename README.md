@@ -35,7 +35,7 @@ All the user management are provided by AWS Cognito. When the user first sign up
 
 ### File upload
 
-Files are uploaded to each user own private 'subfolder' in AWS S3 bucket; therefore other users cannot see your uploaded files. 
+Files are uploaded to each user's own private 'subfolder' in AWS S3 bucket; therefore other users cannot see your uploaded files. 
 
 Only image file can be uploaded, the application contains logic to check the type of file being uploaded. If the file type is not image, the drop box will turn red, and an error message will be shown.
 
