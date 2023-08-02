@@ -60,6 +60,10 @@ export class PredictContentComponent implements OnInit, OnDestroy {
 
   }
 
+  isS3PicturesListNotEmpty(): boolean {
+    return Object.keys(this.s3PicturesKeyToUrlMap).length > 0
+  }
+
 
 
 }
