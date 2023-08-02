@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+
 import { AwsService } from '../../services/aws.service';
+
+import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
+
 
 type UploadFileInfo = {
   fileName: string,
@@ -35,7 +40,7 @@ export class S3uploadComponent {
     return true;
   }
 
-  constructor(private _awsService: AwsService) {}
+  constructor(private _awsService: AwsService, private _dialog: MatDialog) {}
 
   fileDropped(files: any) {
     this.uploadFileInfoArray = [];
@@ -45,7 +50,7 @@ export class S3uploadComponent {
     }
 
     if (!this.verifyFileItems(files)) {
-      //show error message
+      this.openWrongFileTypeDialog();
       return;
     }
 
@@ -92,4 +97,15 @@ export class S3uploadComponent {
 
   }
 
+  openWrongFileTypeDialog() {
+    const dialogRef = this._dialog.open(AlertDialogComponent, {
+      data: { message: "You can only upload image files. The file(s) you tried to upload are not image files" }
+    });
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        console.log(`dialog closed ${result}`);
+      }
+    )
+  }
 }

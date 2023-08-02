@@ -32,4 +32,16 @@ export class PictureCardComponent {
     );
   }
 
+  identifyEntities() {
+    this.isWaiting = true
+    this._awsService.identifyEntitiesFromPic(this.s3BucketKey!, 
+      (resultText) => {
+        if (resultText) {
+          this.analysisResultText = resultText;
+        }
+        this.isWaiting = false;
+      }
+    );
+  }
+
 }

@@ -168,7 +168,7 @@ export class AwsService implements OnDestroy {
   }
 
   
-  async identityEntitiesFromPic(s3KeyName: string, callback: (result: string) => void) {
+  async identifyEntitiesFromPic(s3KeyName: string, callback: (result: string) => void) {
     let identityResult = await Predictions.identify({
             entities: {
               source: {
