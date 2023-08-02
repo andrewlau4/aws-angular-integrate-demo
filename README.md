@@ -1,6 +1,18 @@
 # AwsAngularIntegrateDemo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
+This project is the front-end application that demonstrates using AWS Rekognition to extract text from image.
+The backend AWS infrastructure is setup using terraform and you can find the [full source here](https://github.com/andrewlau4/aws-serverless-backend-terraform).
+
+The following pictures show what this application does:
+
+#### Extract the words 'Happy Birthday' from image
+<img src="readme/text_extract_happy_birthday.gif" alt="Extract Text Happy Birthday" width="240" />
+
+#### Extract the words 'Hello And Welcome' from image
+<img src="readme/text_extract_hello.gif" alt="Extract Text Hello And Welcome" width="240" />
+
+#### Extract the word 'Stop' from Stop Sign image
+<img src="readme/text_extract_stop_sign.gif" alt="Extract Text Stop" width="240" />
 
 ## Development server
 
