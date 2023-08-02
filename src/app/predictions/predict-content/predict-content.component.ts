@@ -16,6 +16,8 @@ export class PredictContentComponent implements OnInit, OnDestroy {
 
   picUploadCompletedSubscription?: Subscription;
 
+  isInitialized = false;
+
   constructor(private _awsService: AwsService) {}
 
   s3PicturesKeyToUrlMap: { [s3key: string]: string } = { }
@@ -24,7 +26,8 @@ export class PredictContentComponent implements OnInit, OnDestroy {
     this.picUploadCompletedSubscription = this._awsService
       .pictureUploadCompleteEvent.subscribe(
         s3KeyName => {
-          if (s3KeyName == null) {
+          if (s3KeyName == null || !this.isInitialized) {
+            this.isInitialized = true;
             this.listAllPics();
           } else {
             this.loadPicFromS3(s3KeyName);
