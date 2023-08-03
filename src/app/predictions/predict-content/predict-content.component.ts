@@ -68,7 +68,6 @@ export class PredictContentComponent implements OnInit, OnDestroy {
   }
 
   getPictureKey(index: number, item: {key: string, value: string}) {
-    console.log(`item ${JSON.stringify(item)}`);
     return item.key;
   }
 
