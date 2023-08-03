@@ -67,6 +67,9 @@ export class PredictContentComponent implements OnInit, OnDestroy {
     return Object.keys(this.s3PicturesKeyToUrlMap).length > 0
   }
 
-
+  getPictureKey(index: number, item: {key: string, value: string}) {
+    console.log(`item ${JSON.stringify(item)}`);
+    return item.key;
+  }
 
 }

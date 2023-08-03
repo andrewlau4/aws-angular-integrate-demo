@@ -1,5 +1,5 @@
 <app-s3upload></app-s3upload>
 
 <div class="picture-container mat-elevation-z8" *ngIf="isS3PicturesListNotEmpty()"> 
-    <app-picture-card *ngFor="let pic of s3PicturesKeyToUrlMap | keyvalue" [pictureUrl]="pic.value" [s3BucketKey]="pic.key"></app-picture-card>
+    <app-picture-card *ngFor="let pic of s3PicturesKeyToUrlMap | keyvalue; trackBy: getPictureKey" [pictureUrl]="pic.value" [s3BucketKey]="pic.key"></app-picture-card>
 </div>

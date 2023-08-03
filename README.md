@@ -1,4 +1,4 @@
-# AwsAngularIntegrateDemo
+# AWS Angular Integrate Demo Using AWS Image Rekognition
 
 ## Demonstrate Extracting Text from Image
 This project is the front-end application that demonstrates using AWS Rekognition to extract text from image.
